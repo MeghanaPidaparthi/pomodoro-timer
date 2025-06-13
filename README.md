@@ -95,5 +95,3 @@ The current color palette is inspired by a cool, muted retro theme, featuring bl
 - **Alarm Sound:** SoundJay.com
 
 ---
-
-Enjoy using your
