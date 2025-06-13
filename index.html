@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Art Pomodoro Timer</title>
+    <!-- Google Fonts for pixelated look (Press Start 2P) -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="window-container">
+        <div class="window-header">
+            <span>Pomodoro Timer &lt;3</span>
+            <div class="window-controls">
+                <button>-</button>
+                <button>&#9633;</button>
+                <button>X</button>
+            </div>
+        </div>
+
+        <div class="window-body-content">
+            <!-- Mode selection -->
+            <div class="mode-buttons-pixel">
+                <button id="pomodoro-mode" class="mode-btn-pixel current-mode">Pomodoro</button>
+                <button id="short-break-mode" class="mode-btn-pixel">Short Break</button>
+                <button id="long-break-mode" class="mode-btn-pixel">Long Break</button>
+            </div>
+
+            <!-- Timer display area -->
+            <div class="timer-display-area">
+                <div id="timer-display-pixel">25:00</div>
+            </div>
+
+            <!-- Main controls -->
+            <div class="main-controls-pixel">
+                <button id="start-btn" class="pixel-button start-btn-style">Start</button>
+                <button id="pause-btn" class="pixel-button pause-btn-style hidden">Pause</button>
+                <button id="reset-btn" class="pixel-button reset-btn-style">Reset</button>
+            </div>
+
+            <!-- Settings section -->
+            <div class="settings-pixel">
+                <h3>Settings</h3>
+                <div class="duration-inputs-pixel">
+                    <div>
+                        <label for="pomodoro-duration">Pomodoro (min)</label>
+                        <input type="number" id="pomodoro-duration" value="25" min="1">
+                    </div>
+                    <div>
+                        <label for="short-break-duration">Short Break (min)</label>
+                        <input type="number" id="short-break-duration" value="5" min="1">
+                    </div>
+                    <div>
+                        <label for="long-break-duration">Long Break (min)</label>
+                        <input type="number" id="long-break-duration" value="15" min="1">
+                    </div>
+                </div>
+                <p class="pomodoros-completed-text">Pomodoros completed: <span id="pomodoros-completed" class="pomodoros-completed-count">0</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio element for alarm sound -->
+    <audio id="alarm-sound" src="https://www.soundjay.com/buttons/beep-07a.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

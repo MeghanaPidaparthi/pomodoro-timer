@@ -1,0 +1,356 @@
+/* Pomodoro Timer Styles */
+        /* Base styles */
+        body {
+            font-family: 'Press Start 2P', cursive;
+            /* Cooler gradient background */
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Hide potential scrollbars from pixelated elements */
+            transition: background 0.5s ease-in-out; /* Smooth background transition */
+        }
+
+        /* Pixelated background clouds */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Muted pixel art clouds pattern */
+            background-image:
+                repeating-linear-gradient(90deg, #A7BCCB 0px, #A7BCCB 2px, transparent 2px, transparent 4px),
+                repeating-linear-gradient(0deg, #B0C4DE 0px, #B0C4DE 2px, transparent 2px, transparent 4px);
+            background-size: 20px 20px;
+            opacity: 0.2; /* Subtle clouds */
+            z-index: -1;
+        }
+
+        /* Main Window Container - mimics retro OS window */
+        .window-container {
+            width: 95%;
+            max-width: 480px; /* Slightly narrower for a more compact look */
+            /* Lighter, cool gray background */
+            background-color: #ECEFF1;
+            /* Darker desaturated blue/gray pixel border */
+            border: 4px solid #4A5568;
+            /* Darker desaturated blue/gray pixelated shadow */
+            box-shadow: 8px 8px 0px 0px #4A5568;
+            border-radius: 8px; /* Slightly rounded corners */
+            overflow: hidden; /* Contains pixel overflow */
+            position: relative;
+            animation: fadeIn 0.5s ease-out;
+            padding-bottom: 20px; /* Space for content at bottom */
+        }
+
+        /* Window Header */
+        .window-header {
+            /* Subtle teal header */
+            background-color: #4DB6AC;
+            /* Darker desaturated blue/gray bottom border */
+            border-bottom: 2px solid #4A5568;
+            padding: 8px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            /* Darker desaturated blue/gray text color */
+            color: #2F4F4F;
+            text-shadow: 1px 1px #fff; /* Pixelated text shadow */
+        }
+
+        .window-controls button {
+            background-color: #CFD8DC; /* Lighter gray control buttons */
+            border: 2px solid #4A5568; /* Darker desaturated blue/gray border */
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            line-height: 1;
+            padding: 0;
+            cursor: pointer;
+            border-radius: 3px;
+            margin-left: 4px;
+            box-shadow: 2px 2px 0px 0px #4A5568; /* Darker desaturated blue/gray shadow */
+            transition: all 0.05s ease-in-out;
+        }
+
+        .window-controls button:hover {
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0px 0px #4A5568;
+        }
+        .window-controls button:active {
+            transform: translate(2px, 2px);
+            box-shadow: 0px 0px 0px 0px #4A5568;
+        }
+
+        /* Main window body content */
+        .window-body-content {
+            padding: 24px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 350px; /* Ensure a good height */
+        }
+
+        /* Mode selection buttons */
+        .mode-buttons-pixel {
+            display: flex;
+            justify-content: center;
+            /* Adjusted gap for better spacing */
+            gap: 12px; /* Increased gap */
+            margin-bottom: 20px;
+            /* Muted light blue/gray for mode selection background */
+            background-color: #CFD8DC;
+            border: 2px solid #4A5568; /* Darker desaturated blue/gray border */
+            border-radius: 6px;
+            padding: 6px;
+            box-shadow: 3px 3px 0px 0px #4A5568; /* Darker desaturated blue/gray shadow */
+        }
+
+        .mode-btn-pixel {
+            background-color: transparent;
+            /* Darker desaturated blue/gray text color */
+            color: #2F4F4F;
+            border: none;
+            /* Adjusted padding */
+            padding: 6px 10px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: background-color 0.1s ease-out, color 0.1s ease-out;
+            border-radius: 4px;
+            text-shadow: 1px 1px #fff;
+            flex: 1; /* Distribute space evenly */
+        }
+
+        .mode-btn-pixel:hover:not(.current-mode) {
+            background-color: #E0E0E0; /* Slightly lighter gray on hover */
+        }
+
+        .mode-btn-pixel.current-mode {
+            /* Vibrant retro blue for active mode */
+            background-color: #03A9F4;
+            color: #2F4F4F; /* Darker text for contrast on active button */
+            font-weight: bold;
+            box-shadow: inset 2px 2px 0px 0px #2F4F4F; /* Darker inset shadow for active state */
+        }
+
+        /* Timer display area */
+        .timer-display-area {
+            width: 200px;
+            height: 200px;
+            /* Lighter gray background for timer circle */
+            background-color: #E0E0E0;
+            border: 4px solid #4A5568; /* Darker desaturated blue/gray border */
+            border-radius: 50%; /* Circular shape */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            box-shadow: 6px 6px 0px 0px #4A5568; /* Darker desaturated blue/gray shadow */
+            position: relative;
+            overflow: hidden;
+
+            /* Pixelated inner pattern for the timer circle */
+            background-image:
+                linear-gradient(45deg, #B0C4DE 25%, transparent 25%, transparent 75%, #B0C4DE 75%, #B0C4DE),
+                linear-gradient(-45deg, #B0C4DE 25%, transparent 25%, transparent 75%, #B0C4DE 75%, #B0C4DE);
+            background-size: 15px 15px;
+            background-position: 0 0, 7.5px 7.5px;
+        }
+
+
+        #timer-display-pixel {
+            font-size: 2.8rem; /* Reduced font size again */
+            /* Distinct retro green timer color */
+            color: #4CAF50;
+            text-shadow: 4px 4px #fff; /* Stronger pixel shadow for time */
+            line-height: 1; /* Prevent extra space */
+        }
+
+        /* Pixelated Button (reused from egg timer, adapted colors) */
+        .pixel-button {
+            /* General button background, can be overridden */
+            background-color: #03A9F4; /* Default blue for generic button */
+            /* Darker desaturated blue/gray text color */
+            color: #2F4F4F;
+            border: 3px solid #4A5568; /* Darker desaturated blue/gray border */
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px 0px #4A5568; /* Darker desaturated blue/gray shadow */
+            transition: all 0.1s ease-out;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 5px;
+            display: inline-block;
+            text-shadow: 1px 1px #fff;
+        }
+
+        .pixel-button:hover {
+            background-color: #2196F3; /* Slightly lighter blue on hover */
+            transform: translate(-1px, -1px);
+            box-shadow: 5px 5px 0px 0px #4A5568;
+        }
+        .pixel-button:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px 0px #4A5568;
+        }
+
+        /* Specific button colors */
+        .pixel-button.start-btn-style { background-color: #4CAF50; } /* Green for Start */
+        .pixel-button.start-btn-style:hover { background-color: #66BB6A; }
+        .pixel-button.pause-btn-style { background-color: #FFEB3B; } /* Yellow for Pause */
+        .pixel-button.pause-btn-style:hover { background-color: #FFEE58; }
+        .pixel-button.reset-btn-style { background-color: #F44336; } /* Red for Reset */
+        .pixel-button.reset-btn-style:hover { background-color: #EF5350; }
+
+
+        .main-controls-pixel {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        /* Settings section */
+        .settings-pixel {
+            border-top: 2px solid #4A5568; /* Darker desaturated blue/gray border */
+            padding-top: 20px;
+            margin-top: auto; /* Push to bottom */
+            width: 100%;
+        }
+
+        .settings-pixel h3 {
+            font-size: 1rem;
+            /* Darker desaturated blue/gray text color */
+            color: #2F4F4F;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px #fff;
+        }
+
+        .duration-inputs-pixel {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .duration-inputs-pixel > div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .duration-inputs-pixel label {
+            /* Adjusted font size for better visibility on small screens */
+            font-size: 0.8rem; /* Increased font size */
+            /* Darker desaturated blue/gray text color */
+            color: #2F4F4F;
+            margin-bottom: 5px;
+            /* Allow wrapping, but try to keep it on one line with increased font-size */
+            white-space: normal;
+            text-shadow: 1px 1px #fff;
+        }
+
+        .duration-inputs-pixel input[type="number"] {
+            width: 60px;
+            /* Lighter cool gray input background */
+            background-color: #CFD8DC;
+            border: 2px solid #4A5568; /* Darker desaturated blue/gray border */
+            padding: 5px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.9rem;
+            /* Darker desaturated blue/gray text color */
+            color: #2F4F4F;
+            text-align: center;
+            box-shadow: 2px 2px 0px 0px #4A5568; /* Darker desaturated blue/gray shadow */
+            border-radius: 4px;
+            transition: all 0.1s ease-out;
+        }
+
+        .duration-inputs-pixel input[type="number"]:focus {
+            outline: none;
+            box-shadow: 3px 3px 0px 0px #4CAF50; /* Green focus outline color */
+        }
+
+        .pomodoros-completed-text {
+            font-size: 0.8rem;
+            /* Darker desaturated blue/gray text color */
+            color: #2F4F4F;
+            text-shadow: 1px 1px #fff;
+        }
+
+        .pomodoros-completed-count {
+            font-weight: bold;
+            /* Match timer color for consistency */
+            color: #4CAF50;
+            font-size: 1.1rem;
+        }
+
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hide elements for transition */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .window-container {
+                width: 98%;
+                margin: 5px;
+            }
+            .window-header {
+                font-size: 0.8rem;
+            }
+            .window-controls button {
+                width: 16px;
+                height: 16px;
+            }
+            .timer-display-area {
+                width: 160px;
+                height: 160px;
+                margin-bottom: 20px;
+            }
+            #timer-display-pixel {
+                font-size: 2rem; /* Further reduced for small screens */
+            }
+            .pixel-button {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+            }
+            .main-controls-pixel {
+                gap: 10px;
+                margin-bottom: 20px;
+            }
+            .mode-btn-pixel {
+                font-size: 0.65rem; /* Adjusted for better fit on small screens */
+                padding: 6px 6px; /* Further reduced horizontal padding for extreme smallness */
+            }
+            .settings-pixel h3 {
+                font-size: 0.9rem;
+            }
+            .duration-inputs-pixel label {
+                font-size: 0.7rem; /* Slightly larger for readability on small screens */
+            }
+            .duration-inputs-pixel input[type="number"] {
+                width: 50px;
+                font-size: 0.8rem;
+            }
+            .pomodoros-completed-text {
+                font-size: 0.7rem;
+            }
+            .pomodoros-completed-count {
+                font-size: 1rem;
+            }
+        }
